@@ -465,7 +465,14 @@
           >8,532</span
         >
       </p>
-      <hr class="divider" />
+      <hr
+          class="divider" style="position:relative;left:-10px"
+          :class="
+            changeModeIndex === 'lightTheme'
+              ? 'buyselldividerForLightTheme'
+              : 'buyselldividerForDarkTheme'
+          "
+        />
     </div>
     <div></div>
     <div v-if="page === 'mainPage'">
@@ -1723,11 +1730,11 @@ export default {
 }
 
 .add-img {
-  margin-top: -30px;
+  margin-top: 6px;
 }
 .add-img2 {
   width: 70%;
-  margin-top: -30px;
+  margin-top: 6px;
   height: 240px;
   border-radius: 13px;
   margin-left: 220px;
