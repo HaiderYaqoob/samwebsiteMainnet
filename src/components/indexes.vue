@@ -411,7 +411,7 @@
           </div>
           <a href="/profile" class="nav-item nav-link"
             ><i
-              class="fas fa-user"
+              class="fas fa-user" style="position:relative;top:7px;"
               :class="
                 changeModeIndex === 'lightTheme' ? 'colorBlack' : 'colorWhite'
               "
@@ -420,7 +420,7 @@
         </div>
       </div>
     </nav>
-    <hr class="divide" />
+    <!-- <hr class="divide" /> -->
     <br /><br /><br /><br />
     <div class="global-status">
       <p>
@@ -1413,12 +1413,12 @@ export default {
       }
     },
     async swapIt () {
-      if (this.transactionSuccess === 'false') {
-        setTimeout(() => {
-          this.$toasted.error('Oops, something wasnt right!')
-          this.swap = 'true'
-        }, 40000)
-      }
+      // if (this.transactionSuccess === 'false') {
+      //   setTimeout(() => {
+      //     this.$toasted.error('Oops, something wasnt right!')
+      //     this.swap = 'true'
+      //   }, 40000)
+      // }
       if (this.placedAmount === '') {
         this.$toasted.error('Please first enter the amount.')
         this.swap = 'true'
@@ -1463,8 +1463,14 @@ export default {
 
           const to = '0x9DD0F556cBE1e28217e96147a7DB5F155b991B10'
           const minAmountOut = this.minAmountOut
-
           const value = this.value
+
+          if (this.transactionSuccess === 'false') {
+            setTimeout(() => {
+              this.$toasted.error('Request Timeout!')
+              this.swap = 'true'
+            }, 20000)
+          }
 
           const tx = await uniswap.swapExactETHForTokens(
             minAmountOut,
@@ -1474,16 +1480,10 @@ export default {
             // {gasLimit: 2000000000000000}
             { value, gasPrice: 20e9 }
           )
+
           console.log(`Transaction hash: ${tx.hash}`)
           this.transactionHash = tx.hash
           this.transactionSuccess = 'true'
-
-          if (this.transactionSuccess === 'false') {
-            setTimeout(() => {
-              this.$toasted.error('Oops, something wasnt right!')
-              this.swap = 'true'
-            }, 25000)
-          }
 
           const receipt = await tx.wait()
           console.log('only receipts', receipt)
@@ -1722,13 +1722,19 @@ export default {
   color: white;
 }
 
+.add-img {
+  margin-top: -30px;
+}
 .add-img2 {
   width: 70%;
+  margin-top: -30px;
   height: 240px;
   border-radius: 13px;
   margin-left: 220px;
 }
-
+#curvedArrow{
+  margin-top: -40px;
+}
 @media only screen and (max-width: 360px) {
   #curvedArrow{
     // margin-right: 50px;
