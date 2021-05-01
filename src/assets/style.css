@@ -386,6 +386,19 @@ input[type=number] {
     font-size: 9px;
 }
 
+.review-insufficient{
+    border: none;
+    background-color: #d2d2e6;
+    padding: 20px 42px;
+    border-radius: 10px;
+    margin-left: 0px !important;
+    color: #766a9e;
+    font-size: 15px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 20px;
+}
+
 .review-btn {
     border: none;
     background-color: #d2d2e6;
@@ -396,6 +409,20 @@ input[type=number] {
     font-size: 17px;
     font-weight: bold;
     white-space: nowrap;
+    margin-top: 20px;
+}
+
+.review-addr{
+    border: none;
+    background-color: #d2d2e6;
+    padding: 20px 45px;
+    border-radius: 10px;
+    margin-left: 0px !important;
+    color: #766a9e;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 20px;
 }
 
 .review-btn2 {

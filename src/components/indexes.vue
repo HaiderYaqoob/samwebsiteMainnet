@@ -1045,6 +1045,16 @@
                   Connect Wallet</button
                 ><br /><br />
               </div>
+              <div v-if="swap === 'addrNone'">
+                <button class="review-addr" @click="loadWeb3()">
+                  Address is not configured</button
+                ><br /><br />
+              </div>
+              <div v-if="swap === 'insufficientLiquidity'">
+                <button class="review-insufficient">
+                  Insufficient liquidity for this trade.</button
+                ><br /><br />
+              </div>
               <div v-if="swap === 'pending'">
                 <button class="review-btn">
                   <img
@@ -1281,18 +1291,35 @@ export default {
         this.swap = 'pending'
         const chainId = 1
         const tokenAddress = this.tokenContractHashAddress
-
         const dai = await Fetcher.fetchTokenData(chainId, tokenAddress)
+          // .catch(this.swap = 'addrNone')
+          .catch(setTimeout(() => {
+            this.swap = 'addrNone'
+          }, 3000))
+        this.swap = 'pending'
         console.log(dai)
         const weth = WETH[chainId]
         console.log('weth', weth)
 
         const pair = await Fetcher.fetchPairData(dai, weth)
+          // .catch(function (err) {
+          //   this.swap = 'false'
+          //   // this.$toasted.error(err)
+          //   console.log('kjhkerrerrerr', err)
+          // })
+          // .catch(this.swap = 'insufficientLiquidity')
+          .catch(setTimeout(() => {
+            this.swap = 'insufficientLiquidity'
+          }, 3000))
+        this.swap = 'pending'
         this.charRegex = /[a-zA-Z]+/
         console.log('pair', pair)
 
+        // pair.then(val => console.log('fsdf', val))
+
         const route = new Route([pair], weth)
         console.log('route', route)
+        this.swap = 'pending'
 
         // if (this.placedAmount > this.withoutPoint) {
         //   console.log('placedAmount', this.placedAmount)
@@ -1303,6 +1330,7 @@ export default {
         const keyPressed = this.placedAmount
 
         console.log('placedAmount is ', this.placedAmount)
+        this.swap = 'pending'
 
         if (keyPressed.match(/^[1-9]+/)) {
           console.log('first')
